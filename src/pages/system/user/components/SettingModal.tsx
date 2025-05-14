@@ -55,10 +55,9 @@ const CreateModal: React.FC<InitProps> = (props) => {
 
   const handleOk = () => {
     actionRef.current?.validateFields().then((res: any) => {
-      console.log(targetKeys);
-      let roleIds: any = [];
+      console.log("targetKeys",targetKeys);
       let params = {
-        roleIds: roleIds,
+        roleIds: targetKeys,
         userId: id,
       };
       submitEditUserRole(params).then((response) => {
@@ -104,7 +103,7 @@ const CreateModal: React.FC<InitProps> = (props) => {
           onChange={handleChange}
           showSearch
           titles={['全部角色', '已分配角色']}
-          render={item => item.title}
+          render={(item:any) => item.title}
         />
       </ProForm>
     </Modal>
