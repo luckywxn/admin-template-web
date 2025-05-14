@@ -17,9 +17,7 @@ const CreateModal: React.FC<InitProps> = (props) => {
 
   const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
   const [checkedKeysResult, setCheckedKeysResult] = useState<React.Key[]>([]);
-  const [checkedKeysResultPath, setCheckedKeysResultPath] = useState<React.Key[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
-  const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
 
   const { close, closeSettingModal, target, settingVisible } = props;
   const { id } = target;
@@ -45,14 +43,11 @@ const CreateModal: React.FC<InitProps> = (props) => {
   const formatItem = (item: any, relCheckedKeys: any, relCheckedKeysResult: any) => {
     if (item.hasPermission) {
       relCheckedKeys.push(item.id);
-      console.log(item);
-      setCheckedKeys(relCheckedKeys);
-      setCheckedKeysResultPath(relCheckedKeys);
+      setCheckedKeysResult(relCheckedKeys);
     }
     if (item.hasPermission && item.children.length == 0) {
       relCheckedKeysResult.push(item.id);
-      console.log(relCheckedKeysResult);
-      setCheckedKeysResult(relCheckedKeysResult);
+      setCheckedKeys(relCheckedKeysResult);
     }
     return {
       title: item.permissionName,
@@ -67,7 +62,7 @@ const CreateModal: React.FC<InitProps> = (props) => {
   const handleOk = () => {
     actionRef.current?.validateFields().then((res: any) => {
       let permissionIds: any = [];
-      checkedKeysResultPath.map((item) => {
+      checkedKeysResult.map((item) => {
         permissionIds.push(item);
       });
       let params = {
@@ -80,7 +75,6 @@ const CreateModal: React.FC<InitProps> = (props) => {
           closeSettingModal();
           setCheckedKeys([]);
           setCheckedKeysResult([]);
-          setCheckedKeysResultPath([]);
         }
       });
     });
@@ -90,18 +84,12 @@ const CreateModal: React.FC<InitProps> = (props) => {
     close();
     setCheckedKeys([]);
     setCheckedKeysResult([]);
-    setCheckedKeysResultPath([]);
-  };
-
-  const onExpand = (expandedKeysValue: React.Key[]) => {
-    setAutoExpandParent(false);
   };
 
   const onCheck = (checkedKeysValue: React.Key[], info: any) => {
     let checkedKeysResult = [...checkedKeysValue, ...info.halfCheckedKeys];
     setCheckedKeys(checkedKeysValue);
-    setCheckedKeysResult(checkedKeysValue);
-    setCheckedKeysResultPath(checkedKeysResult);
+    setCheckedKeysResult(checkedKeysResult);
   };
 
   const onSelect = (selectedKeysValue: React.Key[], info: any) => {
@@ -133,10 +121,8 @@ const CreateModal: React.FC<InitProps> = (props) => {
       >
         <Tree
           checkable
-          onExpand={onExpand}
-          autoExpandParent={autoExpandParent}
           onCheck={onCheck}
-          checkedKeys={checkedKeysResult}
+          checkedKeys={checkedKeys}
           onSelect={onSelect}
           selectedKeys={selectedKeys}
           treeData={tree}

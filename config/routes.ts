@@ -45,7 +45,7 @@ export default [
         icon: 'smile',
         path: '/system/user',
         component: './system/user',
-        access:'/admin'
+        access:'/user'
       },
     ],
   },
