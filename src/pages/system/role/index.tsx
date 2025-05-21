@@ -90,7 +90,7 @@ const TableList: React.FC = () => {
             setEditVisible(true);
           }}
         >
-          编辑名称
+          编辑
         </a>,
         <a
           key="config"

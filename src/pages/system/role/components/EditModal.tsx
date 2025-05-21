@@ -49,7 +49,7 @@ const UpdateForm: React.FC<InitProps> = (props) => {
       let params: any = {
         roleName,
         roleRemark,
-        status,
+        status: status ? 1 : 0,
       };
       console.log(id)
       if (id) {

@@ -5,7 +5,8 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { FormattedMessage, useIntl, useRequest } from '@umijs/max';
-import { Input, message } from 'antd';
+import { Button, Input, message } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import React, { useRef, useState } from 'react';
 import SettingModal from './components/SettingModal';
 import EditModal from './components/EditModal';
@@ -105,7 +106,7 @@ const TableList: React.FC = () => {
             setEditVisible(true);
           }}
         >
-          编辑名称
+          编辑
         </a>,
         <a
           key="config"
@@ -145,6 +146,17 @@ const TableList: React.FC = () => {
         search={{
           labelWidth: 120,
         }}
+        toolBarRender={() => [
+          <Button
+            type="primary"
+            key="primary"
+            onClick={() => {
+              setEditVisible(true);
+            }}
+          >
+            <PlusOutlined /> 添加
+          </Button>,
+        ]}
         request={getUserList}
         columns={columns}
         rowSelection={{
